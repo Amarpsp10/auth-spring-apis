@@ -33,6 +33,18 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AuthController{
     private final UserService userService;
 
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user){
+        userService.saveUser(user);
+        userService.addRollToUser(user.getUsername(),"ROLE_USER");
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setName(user.getName());
+        newUser.setId(user.getId());
+        newUser.setRoles(user.getRoles());
+        return ResponseEntity.created(uri).body(newUser);
+    }
     @PostMapping("/user/save")
     public ResponseEntity<User> saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
