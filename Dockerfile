@@ -4,4 +4,4 @@ ADD target/auth-spring-apis.jar auth-spring-apis.jar
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar", "auth-spring-apis.jarm"]
+ENTRYPOINT [ "java", "-jar", "auth-spring-apis.jar"]
