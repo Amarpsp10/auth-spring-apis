@@ -15,7 +15,7 @@
         docker build . -t auth-spring-api-image-name
     create container and run 
         
-        docker run -p 8080:8080 auth-spring-api-image-name
+        docker run -p 8080:8080 --name auth-spring-container-name auth-spring-api-image-name
 
 4.  Done, check your `localhost` at Port `8080`.
 <hr/>
