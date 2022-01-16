@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mysql-standalone:
+    image: "mysql:latest"
+    container_name: "mysql-standalone"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=test
+
+    ports:
+      - "3306:3306"
+
+  auth-spring-apis:
+    image: auth-spring-apis
+    container_name: "auth-spring-api-con"
+    ports:
+      - "8080:8080"
+
+    environment:
+      - MYSQL_HOST=mysql-standalone
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+
+    depends_on:
+      - mysql-standalone
